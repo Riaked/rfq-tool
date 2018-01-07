@@ -135,7 +135,6 @@
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="Home.cpp" />
     <ClCompile Include="scanner.cpp" />
-    <ClCompile Include="speed.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +143,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="scanner.h" />
-    <ClInclude Include="speed.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>

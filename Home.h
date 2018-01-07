@@ -46,10 +46,11 @@ namespace Home {
 	private: System::Windows::Forms::DateTimePicker^  dateTimePicker1;
 	private: System::Windows::Forms::Button^  exp_hack_button;
 	private: System::Windows::Forms::Button^  bonus_present_hack_button;
-	private: System::Windows::Forms::Label^  label1;
+
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::LinkLabel^  vouch_label;
-	private: System::Windows::Forms::Label^  label2;
+  private: System::Windows::Forms::CheckBox^  speed_checkbox;
+
+
 
 	private:
 		/// <summary>
@@ -70,10 +71,8 @@ namespace Home {
       this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
       this->exp_hack_button = (gcnew System::Windows::Forms::Button());
       this->bonus_present_hack_button = (gcnew System::Windows::Forms::Button());
-      this->label1 = (gcnew System::Windows::Forms::Label());
       this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-      this->vouch_label = (gcnew System::Windows::Forms::LinkLabel());
-      this->label2 = (gcnew System::Windows::Forms::Label());
+      this->speed_checkbox = (gcnew System::Windows::Forms::CheckBox());
       (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
       this->SuspendLayout();
       // 
@@ -100,12 +99,12 @@ namespace Home {
       // home_label
       // 
       this->home_label->AutoSize = true;
-      this->home_label->Location = System::Drawing::Point(54, 62);
+      this->home_label->Location = System::Drawing::Point(56, 61);
       this->home_label->Name = L"home_label";
-      this->home_label->Size = System::Drawing::Size(72, 13);
+      this->home_label->Size = System::Drawing::Size(69, 13);
       this->home_label->TabIndex = 3;
       this->home_label->TabStop = true;
-      this->home_label->Text = L"Duke Gamerz";
+      this->home_label->Text = L"Source Code";
       this->home_label->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &Home::home_label_LinkClicked);
       // 
       // dateTimePicker1
@@ -138,51 +137,30 @@ namespace Home {
       this->bonus_present_hack_button->UseVisualStyleBackColor = true;
       this->bonus_present_hack_button->Click += gcnew System::EventHandler(this, &Home::bonus_present_hack_button_Click);
       // 
-      // label1
-      // 
-      this->label1->AutoSize = true;
-      this->label1->Location = System::Drawing::Point(52, 46);
-      this->label1->Name = L"label1";
-      this->label1->Size = System::Drawing::Size(77, 13);
-      this->label1->TabIndex = 12;
-      this->label1->Text = L"Made by Duke";
-      // 
       // pictureBox1
       // 
       this->pictureBox1->Location = System::Drawing::Point(12, 12);
       this->pictureBox1->Name = L"pictureBox1";
-      this->pictureBox1->Size = System::Drawing::Size(160, 47);
+      this->pictureBox1->Size = System::Drawing::Size(160, 59);
       this->pictureBox1->TabIndex = 13;
       this->pictureBox1->TabStop = false;
       // 
-      // vouch_label
+      // speed_checkbox
       // 
-      this->vouch_label->AutoSize = true;
-      this->vouch_label->Location = System::Drawing::Point(64, 78);
-      this->vouch_label->Name = L"vouch_label";
-      this->vouch_label->Size = System::Drawing::Size(51, 13);
-      this->vouch_label->TabIndex = 14;
-      this->vouch_label->TabStop = true;
-      this->vouch_label->Text = L"+VOUCH";
-      this->vouch_label->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &Home::vouch_label_LinkClicked);
-      // 
-      // label2
-      // 
-      this->label2->AutoSize = true;
-      this->label2->Location = System::Drawing::Point(43, 96);
-      this->label2->Name = L"label2";
-      this->label2->Size = System::Drawing::Size(96, 13);
-      this->label2->TabIndex = 15;
-      this->label2->Text = L"First Buyers : Duke";
+      this->speed_checkbox->AutoSize = true;
+      this->speed_checkbox->Location = System::Drawing::Point(45, 41);
+      this->speed_checkbox->Name = L"speed_checkbox";
+      this->speed_checkbox->Size = System::Drawing::Size(86, 17);
+      this->speed_checkbox->TabIndex = 14;
+      this->speed_checkbox->Text = L"Speed Hack";
+      this->speed_checkbox->UseVisualStyleBackColor = true;
       // 
       // Home
       // 
       this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
       this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-      this->ClientSize = System::Drawing::Size(184, 119);
-      this->Controls->Add(this->label2);
-      this->Controls->Add(this->vouch_label);
-      this->Controls->Add(this->label1);
+      this->ClientSize = System::Drawing::Size(184, 83);
+      this->Controls->Add(this->speed_checkbox);
       this->Controls->Add(this->exp_hack_button);
       this->Controls->Add(this->bonus_present_hack_button);
       this->Controls->Add(this->dateTimePicker1);
@@ -202,16 +180,19 @@ namespace Home {
 
     }
 #pragma endregion
-  private: DWORD carat_address;
-  private: DWORD exp_address;
+  private: unsigned long carat_address;
+  private: unsigned long exp_address;
+  private: unsigned long speed_address;
+  private: unsigned long speed_offset = 0xD0;
+
+  private: System::Void enable_speed(System::Object^ args);
 
   private: System::Void Home_Load(System::Object^  sender, System::EventArgs^  e);
   private: System::Void carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void disable_hacks_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void bonus_present_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void exp_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
-	
+
   private: System::Void home_label_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e);
-  private: System::Void vouch_label_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e);
 };
 }

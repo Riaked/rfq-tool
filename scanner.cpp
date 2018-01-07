@@ -11,31 +11,29 @@ DWORD scanner::find_pattern(DWORD dw_start, DWORD dw_end, const char *pattern, i
   {
     _try
     {
-
       if (!*pat)
-      return match;
-    if (*(PBYTE)pat == '\?' || *(BYTE *)dw_cur == get_byte(pat))
-    {
-      if (!match)
-        match = dw_cur;
-      if (!pat[2])
+        return match;
+      if (*(PBYTE)pat == '\?' || *(BYTE *)dw_cur == get_byte(pat))
       {
-        if (results + 1 != result)
-          results++;
+        if (!match)
+          match = dw_cur;
+        if (!pat[2])
+        {
+          if (results + 1 != result)
+            results++;
+          else
+            return match;
+        }
+        if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?')
+          pat += 3;
         else
-          return match;
+          pat += 2;  // # one ?
       }
-      if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?')
-        pat += 3;
       else
-        pat += 2;  // # one ?
-    }
-    else
-    {
-      pat = pattern;
-      match = 0;
-    }
-
+      {
+        pat = pattern;
+        match = 0;
+      }
     }
       _except(EXCEPTION_EXECUTE_HANDLER) {}
   }

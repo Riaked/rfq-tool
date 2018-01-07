@@ -28,6 +28,33 @@ int __stdcall memapi::write(DWORD dw_address, std::string write_buffer)
 
 }
 
+unsigned long memapi::pointer::ptr_address(unsigned long base, unsigned long offsets[]) {
+
+  int ptr_level = sizeof(offsets);
+  unsigned long ptr = *(unsigned long*)(base);
+  if (ptr == 0)
+    return 0;
+
+  for (int i = 0; i < ptr_level; i++)
+  {
+    if (i == ptr_level - 1)
+    {
+      ptr = (DWORD)(ptr + offsets[i]);
+      if (ptr == 0)
+        return 0;
+      return ptr;
+    }
+    else
+    {
+      ptr = *(DWORD*)(ptr + offsets[i]);
+      if (ptr == 0)
+        return 0;
+    }
+  }
+  return ptr;
+
+}
+
 bool memapi::pointer::valid(unsigned long base, unsigned long offset)
 {
 
