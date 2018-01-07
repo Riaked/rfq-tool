@@ -40,7 +40,7 @@ namespace Home {
 		}
 	private: System::Windows::Forms::Button^  carat_hack_button;
 	protected:
-	private: System::Windows::Forms::Button^  disable_carat_hack_button;
+	private: System::Windows::Forms::Button^  disable_hacks_button;
 
 	private: System::Windows::Forms::LinkLabel^  home_label;
 
@@ -68,7 +68,7 @@ namespace Home {
 		void InitializeComponent(void)
 		{
       this->carat_hack_button = (gcnew System::Windows::Forms::Button());
-      this->disable_carat_hack_button = (gcnew System::Windows::Forms::Button());
+      this->disable_hacks_button = (gcnew System::Windows::Forms::Button());
       this->home_label = (gcnew System::Windows::Forms::LinkLabel());
       this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
       this->exp_hack_button = (gcnew System::Windows::Forms::Button());
@@ -90,15 +90,15 @@ namespace Home {
       this->carat_hack_button->UseVisualStyleBackColor = true;
       this->carat_hack_button->Click += gcnew System::EventHandler(this, &Home::carat_hack_button_Click);
       // 
-      // disable_carat_hack_button
+      // disable_hacks_button
       // 
-      this->disable_carat_hack_button->Location = System::Drawing::Point(12, 12);
-      this->disable_carat_hack_button->Name = L"disable_carat_hack_button";
-      this->disable_carat_hack_button->Size = System::Drawing::Size(160, 23);
-      this->disable_carat_hack_button->TabIndex = 1;
-      this->disable_carat_hack_button->Text = L"Disable";
-      this->disable_carat_hack_button->UseVisualStyleBackColor = true;
-      this->disable_carat_hack_button->Click += gcnew System::EventHandler(this, &Home::disable_carat_hack_button_Click);
+      this->disable_hacks_button->Location = System::Drawing::Point(12, 12);
+      this->disable_hacks_button->Name = L"disable_hacks_button";
+      this->disable_hacks_button->Size = System::Drawing::Size(160, 23);
+      this->disable_hacks_button->TabIndex = 1;
+      this->disable_hacks_button->Text = L"Disable";
+      this->disable_hacks_button->UseVisualStyleBackColor = true;
+      this->disable_hacks_button->Click += gcnew System::EventHandler(this, &Home::disable_hacks_button_Click);
       // 
       // home_label
       // 
@@ -192,7 +192,7 @@ namespace Home {
       this->Controls->Add(this->home_label);
       this->Controls->Add(this->carat_hack_button);
       this->Controls->Add(this->pictureBox1);
-      this->Controls->Add(this->disable_carat_hack_button);
+      this->Controls->Add(this->disable_hacks_button);
       this->MaximizeBox = false;
       this->MinimizeBox = false;
       this->Name = L"Home";
@@ -210,7 +210,7 @@ namespace Home {
 
   private: System::Void Home_Load(System::Object^  sender, System::EventArgs^  e);
   private: System::Void carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
-  private: System::Void disable_carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
+  private: System::Void disable_hacks_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void bonus_present_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void exp_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
 	
