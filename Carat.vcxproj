@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="memory.h" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="Home.cpp" />
     <ClCompile Include="scanner.cpp" />
@@ -139,13 +140,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes.h" />
-    <ClInclude Include="memory.h" />
     <ClInclude Include="Home.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="scanner.h" />
     <ClInclude Include="speed.h" />
     <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
