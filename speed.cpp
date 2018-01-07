@@ -4,7 +4,7 @@
 bool SpeedHackEnabled, SpeedHackInitialized;
 double TickCount;
 long long PerformanceCount, PerformanceFrequency;
-float Acceleration = 1;
+float ACCELERATION = 1;
 const int SleepTime = 10;
  
 typedef MMRESULT (__stdcall *timebeginperiod) (UINT Period);
@@ -51,8 +51,8 @@ void Tick()
         Sleep(SleepTime);
         if (SpeedHackEnabled)
         {
-            TickCount += SleepTime * Acceleration;
-            PerformanceCount += (long long)(PerformanceSleepTime * Acceleration);
+            TickCount += SleepTime * ACCELERATION;
+            PerformanceCount += (long long)(PerformanceSleepTime * ACCELERATION);
         }
         else
         {
