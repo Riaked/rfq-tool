@@ -50,4 +50,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Home.resx" />
+  </ItemGroup>
 </Project>

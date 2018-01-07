@@ -2,7 +2,10 @@
 #include "memory.h"
 #include "scanner.h"
 
-[STAThreadAttribute]
+#pragma comment(lib, "Shell32.lib")    
+#include <ShellAPI.h>
+
+[Home::STAThreadAttribute]
 
 void Main(void) {
   Home::Application::EnableVisualStyles();

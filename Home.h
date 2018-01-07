@@ -1,8 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include <fstream>
-#include <string.h>
-#include <stdio.h>
+#include "includes.h"
 
 namespace Home {
 
@@ -206,7 +203,7 @@ namespace Home {
     }
 #pragma endregion
   private: DWORD carat_address;
-  private: DWORD exp_address = 0x0;
+  private: DWORD exp_address;
 
   private: System::Void Home_Load(System::Object^  sender, System::EventArgs^  e);
   private: System::Void carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
