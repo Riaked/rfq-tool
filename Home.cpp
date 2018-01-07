@@ -24,12 +24,14 @@ void Home::Home::enable_speed(Object^ args) {
     if (FindWindow("Rumble Fighter", "Rumble Fighter") && !this->speed_address)
       this->speed_address = scanner::find_pattern(0x500000, 0x8FFFFF, "A8 F9 ? 05 30 7F ? 05");
 
-    if (this->speed_checkbox->Checked)
-      memapi::pointer::\
-        write_float(this->speed_address, this->speed_offset, FLT_MAX); // # modify query performance tick
-    else
-      memapi::pointer::\
-        write_float(this->speed_address, this->speed_offset, 60); // # reset query performance tick
+    if(this->speed_address) {
+      if (this->speed_checkbox->Checked)
+        memapi::pointer::\
+          write_float(this->speed_address, this->speed_offset, FLT_MAX); // # modify query performance tick
+      else
+        memapi::pointer::\
+          write_float(this->speed_address, this->speed_offset, 60); // # reset query performance tick
+    }
 
     Sleep(1000);
 
