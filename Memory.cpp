@@ -1,83 +1,94 @@
-#include "Memory.h"
-#pragma unmanaged
+#include "memory.h"
 
-//DEFAULT_CONSTRUCTOR
-Memory::Memory() {
-
-};
-
-//DESTRUCTOR
-Memory::~Memory() {
-
-};
-
-//FUNCTIONAL
-int _stdcall Memory::WriteMemory ( void* pvAddress, void* pvWriteBuffer, size_t Size ) {
-	DWORD dwAddress, dwOldProtectionFlags, dwSize;
-
-	int iReturnCode;
-
-	iReturnCode = 0;
-
-	dwAddress = ROUND_DOWN ( pvAddress, 0x1000 ); // assume 4096 bytes of granularity for pages, otherwise use void* and GetSystemInfo to get page size for x64
-	dwSize = ROUND_UP ( Size, 0x1000 );
-
-	if ( VirtualProtect ( ( LPVOID )dwAddress, dwSize, PAGE_EXECUTE_READWRITE, &dwOldProtectionFlags ) )
-	{
-		memcpy ( pvAddress, pvWriteBuffer, Size );
-
-		if ( VirtualProtect ( ( LPVOID )dwAddress, dwSize, dwOldProtectionFlags, &dwOldProtectionFlags ) )
-		{
-			if ( FlushInstructionCache ( GetCurrentProcess(), ( LPCVOID )dwAddress, dwSize ) )
-			{
-				iReturnCode = 0;
-			}
-			else
-			{
-				iReturnCode = GetLastError();
-			}
-		}
-		else
-		{
-			iReturnCode = GetLastError();
-		}
-	}
-	else
-	{
-		iReturnCode = GetLastError();
-	}
-
-	return iReturnCode;
-};
-
-ULONG_PTR Memory::ReadPtr(DWORD dwBase, INT iOffset) {
-	ULONG_PTR* ulBase = (ULONG_PTR *)dwBase;
-	if ( !IsBadReadPtr((VOID*)ulBase, sizeof(ULONG_PTR)) )
-		if ( !IsBadReadPtr((VOID*)((*(ULONG_PTR*)ulBase)+iOffset), sizeof(ULONG_PTR)) )
-			return *(ULONG_PTR*)((*(ULONG_PTR*)ulBase)+iOffset);
-	return 0;
-};
-
-std::string Memory::ReadStr(DWORD dwBase, INT iOffset) {
-	ULONG_PTR* ulBase = (ULONG_PTR *)dwBase;
-	if ( !IsBadReadPtr((VOID*)ulBase, sizeof(ULONG_PTR)) )
-		if ( !IsBadReadPtr((VOID*)((*(ULONG_PTR*)ulBase)+iOffset), sizeof(ULONG_PTR)) )
-			return *(std::string*)((*(int*)ulBase)+iOffset);
-	return 0;
-};
-
-BOOL Memory::WritePtr(unsigned long ulBase, INT iOffset, int iValue)
+int __stdcall memapi::write(DWORD dw_address, std::string write_buffer)
 {
-	__try { *(int*)(*(unsigned long*)ulBase + iOffset) = iValue; return TRUE; }
-	__except (EXCEPTION_EXECUTE_HANDLER){ }
 
-	return FALSE;
-};
+  DWORD dw_old_protection_flags, dw_size;
+  void *pv_address = (void *)dw_address;
 
-BOOL Memory::WriteStr(unsigned long ulBase, INT iOffset, std::string sValue)
+  size_t size = std::count(write_buffer.begin(), write_buffer.end(), ' ') + 1;
+  utils::replace_string(write_buffer, " ", "");
+  std::vector<unsigned char> bytes = utils::hex_to_bytes(write_buffer);
+  PBYTE pb_write_buffer = bytes.data();
+
+  dw_address = ROUND_DOWN(pv_address, 0x1000);
+  dw_size = ROUND_UP(size, 0x1000);
+
+  if (VirtualProtect((LPVOID)dw_address, dw_size, PAGE_EXECUTE_READWRITE, &dw_old_protection_flags))
+  {
+    memcpy(pv_address, pb_write_buffer, size);
+    if (VirtualProtect((LPVOID)dw_address, dw_size, dw_old_protection_flags, &dw_old_protection_flags))
+    {
+      if (FlushInstructionCache(GetCurrentProcess(), (LPCVOID)dw_address, dw_size))
+        return 0;
+      return GetLastError();
+    }
+  }
+  return GetLastError();
+
+}
+
+bool memapi::pointer::valid(unsigned long base, unsigned long offset)
 {
-	try { *(std::string*)(*(unsigned long*)ulBase + iOffset) = sValue; return TRUE; }
-	catch(...){ }
 
-	return FALSE;
-};
+  ULONG_PTR *ul_base = (ULONG_PTR *)base;
+  if (!IsBadReadPtr((VOID *)ul_base, sizeof(ULONG_PTR)))
+    if (!IsBadReadPtr((VOID *)((*(ULONG_PTR *)ul_base) + offset), sizeof(ULONG_PTR)))
+      return true;
+  return false;
+
+}
+
+int memapi::pointer::read_int(unsigned long base, unsigned long offset)
+{
+
+  if (valid(base, offset))
+    return *(int *)(*(unsigned long *)base + offset);
+  else
+    return 0;
+
+}
+
+void memapi::pointer::write_int(unsigned long base, unsigned long offset, int value)
+{
+
+  if (valid(base, offset))
+    *(int *)(*(unsigned long *)base + offset) = value;
+
+}
+
+std::string memapi::pointer::read_str(unsigned long base, unsigned long offset)
+{
+
+  if (valid(base, offset))
+    return *(std::string *)(*(unsigned long *)base + offset);
+  else
+    return "";
+
+}
+
+void memapi::pointer::write_str(unsigned long base, unsigned long offset, std::string value)
+{
+
+  if (valid(base, offset))
+    *(std::string *)(*(unsigned long *)base + offset) = value;
+
+}
+
+float memapi::pointer::read_float(unsigned long base, unsigned long offset)
+{
+
+  if (valid(base, offset))
+    return *(float *)(*(unsigned long *)base + offset);
+  else
+    return 0;
+
+}
+
+void memapi::pointer::write_float(unsigned long base, unsigned long offset, float value)
+{
+
+  if (valid(base, offset))
+    *(float *)(*(unsigned long *)base + offset) = value;
+
+}

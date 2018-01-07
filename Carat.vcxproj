@@ -130,23 +130,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Buildup\Buildup\Memory.cpp" />
-    <ClCompile Include="..\..\DLL.cpp" />
-    <ClCompile Include="MyForm.cpp" />
-    <ClCompile Include="Speed.cpp" />
+    <ClCompile Include="memory.cpp" />
+    <ClCompile Include="entry.cpp" />
+    <ClCompile Include="Home.cpp" />
+    <ClCompile Include="scanner.cpp" />
+    <ClCompile Include="speed.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Memory.h" />
-    <ClInclude Include="..\..\..\Scanner.h" />
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="includes.h" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="Home.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Speed.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
-    </EmbeddedResource>
+    <ClInclude Include="scanner.h" />
+    <ClInclude Include="speed.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

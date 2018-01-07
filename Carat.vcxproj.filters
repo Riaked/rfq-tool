@@ -9,42 +9,45 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="Home.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Memory.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Scanner.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="memory.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Speed.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="speed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp">
+    <ClCompile Include="Home.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DLL.cpp">
+    <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Buildup\Buildup\Memory.cpp">
+    <ClCompile Include="memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Speed.cpp">
+    <ClCompile Include="speed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
+    <ClCompile Include="scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
