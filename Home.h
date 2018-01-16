@@ -154,6 +154,7 @@ namespace Home {
       this->speed_checkbox->TabIndex = 14;
       this->speed_checkbox->Text = L"Speed Hack";
       this->speed_checkbox->UseVisualStyleBackColor = true;
+      this->speed_checkbox->CheckedChanged += gcnew System::EventHandler(this, &Home::speed_checkbox_CheckedChanged);
       // 
       // Home
       // 
@@ -182,16 +183,15 @@ namespace Home {
 #pragma endregion
   private: unsigned long carat_address;
   private: unsigned long exp_address;
-  private: unsigned long speed_address;
-  private: unsigned long speed_offset = 0xD0;
-
-  private: System::Void enable_speed(System::Object^ args);
+  private: unsigned long speed_prec_address;
+  private: unsigned long speed_reg_address;
 
   private: System::Void Home_Load(System::Object^  sender, System::EventArgs^  e);
   private: System::Void carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void disable_hacks_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void bonus_present_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
   private: System::Void exp_hack_button_Click(System::Object^  sender, System::EventArgs^  e);
+  private: System::Void speed_checkbox_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 
   private: System::Void home_label_LinkClicked(System::Object^  sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^  e);
 };

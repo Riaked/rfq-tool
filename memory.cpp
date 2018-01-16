@@ -1,30 +1,66 @@
 #include "memory.h"
 
-int __stdcall memapi::write(DWORD dw_address, std::string write_buffer)
+int __stdcall memapi::write(unsigned long ul_address, std::string write_buffer)
 {
 
   DWORD dw_old_protection_flags, dw_size;
-  void *pv_address = (void *)dw_address;
+  void *pv_address = (void *)ul_address;
 
   size_t size = std::count(write_buffer.begin(), write_buffer.end(), ' ') + 1;
   utils::replace_string(write_buffer, " ", "");
   std::vector<unsigned char> bytes = utils::hex_to_bytes(write_buffer);
   PBYTE pb_write_buffer = bytes.data();
 
-  dw_address = ROUND_DOWN(pv_address, 0x1000);
+  ul_address = ROUND_DOWN(pv_address, 0x1000);
   dw_size = ROUND_UP(size, 0x1000);
 
-  if (VirtualProtect((LPVOID)dw_address, dw_size, PAGE_EXECUTE_READWRITE, &dw_old_protection_flags))
+  if (VirtualProtect((LPVOID)ul_address, dw_size, PAGE_EXECUTE_READWRITE, &dw_old_protection_flags))
   {
     memcpy(pv_address, pb_write_buffer, size);
-    if (VirtualProtect((LPVOID)dw_address, dw_size, dw_old_protection_flags, &dw_old_protection_flags))
+    if (VirtualProtect((LPVOID)ul_address, dw_size, dw_old_protection_flags, &dw_old_protection_flags))
     {
-      if (FlushInstructionCache(GetCurrentProcess(), (LPCVOID)dw_address, dw_size))
+      if (FlushInstructionCache(GetCurrentProcess(), (LPCVOID)ul_address, dw_size))
         return 0;
       return GetLastError();
     }
   }
   return GetLastError();
+
+}
+
+void memapi::write_int(unsigned long ul_address, int value) {
+
+  DWORD dw_old_protection_flags, dw_size;
+  void *pv_address = (void *)ul_address;
+  size_t size = sizeof(value);
+
+  ul_address = ROUND_DOWN(pv_address, 0x1000);
+  dw_size = ROUND_UP(size, 0x1000);
+
+  if (VirtualProtect((LPVOID)ul_address, dw_size, PAGE_EXECUTE_READWRITE, &dw_old_protection_flags))
+  {
+    memcpy(pv_address, static_cast<char*>(static_cast<void*>(&value)), size);
+    if (VirtualProtect((LPVOID)ul_address, dw_size, dw_old_protection_flags, &dw_old_protection_flags))
+      FlushInstructionCache(GetCurrentProcess(), (LPCVOID)ul_address, dw_size);
+  }
+
+}
+
+void memapi::write_float(unsigned long ul_address, float value) {
+
+  DWORD dw_old_protection_flags, dw_size;
+  void *pv_address = (void *)ul_address;
+  size_t size = sizeof(value);
+
+  ul_address = ROUND_DOWN(pv_address, 0x1000);
+  dw_size = ROUND_UP(size, 0x1000);
+
+  if (VirtualProtect((LPVOID)ul_address, dw_size, PAGE_EXECUTE_READWRITE, &dw_old_protection_flags))
+  {
+    memcpy(pv_address, static_cast<char*>(static_cast<void*>(&value)), size);
+    if (VirtualProtect((LPVOID)ul_address, dw_size, dw_old_protection_flags, &dw_old_protection_flags))
+      FlushInstructionCache(GetCurrentProcess(), (LPCVOID)ul_address, dw_size);
+  }
 
 }
 

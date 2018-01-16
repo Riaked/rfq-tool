@@ -17,34 +17,12 @@ void Main(void) {
 #define dw_start 0x400000
 #define dw_end 0xFFFFFFF 
 
-void Home::Home::enable_speed(Object^ args) {
-
-  while (true) {
-
-    if (FindWindow("Rumble Fighter", "Rumble Fighter") && !this->speed_address)
-      this->speed_address = scanner::find_pattern(0x500000, 0x8FFFFF, "A8 F9 ? 05 30 7F ? 05");
-
-    if(this->speed_address) {
-      if (this->speed_checkbox->Checked)
-        memapi::pointer::\
-          write_float(this->speed_address, this->speed_offset, FLT_MAX); // # modify query performance tick
-      else
-        memapi::pointer::\
-          write_float(this->speed_address, this->speed_offset, 60); // # reset query performance tick
-    }
-
-    Sleep(1000);
-
-  }
-
-}
-
 void Home::Home::Home_Load(System::Object^  sender, System::EventArgs^  e) {
   this->carat_address = scanner::find_pattern(dw_start, dw_end, "89 46 23 66 89 46 27");
   this->exp_address = Home::carat_address - 0x1000;
-  System::Threading::Thread ^tr = gcnew System::Threading::\
-    Thread(gcnew System::Threading::ParameterizedThreadStart(this, &Home::enable_speed));
-  tr->Start();
+  this->speed_reg_address = scanner::find_pattern(
+    dw_start, dw_end, "00 00 48 42 14 17 79 00 80");
+  this->speed_prec_address = this->speed_reg_address - 0x288B0;
 }
 
 void Home::Home::carat_hack_button_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -60,6 +38,17 @@ void Home::Home::bonus_present_hack_button_Click(System::Object^  sender, System
 void Home::Home::exp_hack_button_Click(System::Object^  sender, System::EventArgs^  e) {
   memapi::write(this->exp_address, "C7 46 38 00 20 00 00"); // # enable exp hack
   Home::disable_hacks_button->BringToFront();
+}
+
+void Home::Home::speed_checkbox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+  if (this->speed_checkbox->Checked) {
+    memapi::write_float(this->speed_reg_address, FLT_MAX);
+    memapi::write_float(this->speed_prec_address, FLT_MAX);
+  }
+  else {
+    memapi::write_float(this->speed_reg_address, 50);
+    memapi::write_float(this->speed_prec_address, 60);
+  }
 }
 
 void Home::Home::disable_hacks_button_Click(System::Object^  sender, System::EventArgs^  e) {

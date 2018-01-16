@@ -7,7 +7,9 @@ namespace memapi {
 #define ROUND_UP(p, align) (((DWORD)(p) + (align)-1) & ~((align)-1))
 #define ROUND_DOWN(p, align) ((DWORD)(p) & ~((align)-1))
 
-  int __stdcall write(DWORD dw_address, std::string write_buffer);
+  int __stdcall write(unsigned long ul_address, std::string write_buffer);
+  void write_int(unsigned long ul_address, int value);
+  void write_float(unsigned long ul_address, float value);
 
   namespace pointer {
 
