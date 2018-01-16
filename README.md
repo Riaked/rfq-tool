@@ -11,6 +11,7 @@ This was released for educational purposes, the RumbleFighter client has allowed
 - Exp Hack
 - Bonus Present Hack
 - Bypassless Speed Hack
+  - To enable, tick speed and change your channel.
 
 ### Contributors
 
