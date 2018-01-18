@@ -15,7 +15,7 @@ void Main(void) {
 }
 
 #define dw_start 0x400000
-#define dw_end 0xFFFFFFF 
+#define dw_end 0x8FFFFF
 
 void Home::Home::Home_Load(System::Object^  sender, System::EventArgs^  e) {
   this->carat_address = scanner::find_pattern(dw_start, dw_end, "89 46 23 66 89 46 27");
